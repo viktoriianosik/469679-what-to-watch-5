@@ -1,6 +1,6 @@
-import React from 'react';
-import ReactDom from 'react-dom';
-import App from './components/app/app';
+import React from "react";
+import ReactDom from "react-dom";
+import App from "./components/app/app";
 
 const FilmSetting = {
   NAME: `The Grand Budapest Hotel`,
