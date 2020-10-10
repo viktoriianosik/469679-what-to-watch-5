@@ -4,17 +4,18 @@ import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Main from "../main/main";
 import Login from "../login/login";
 import AddReview from "../add-review/add-review";
-import Film from "../film/film";
+import Movie from "../movie/movie";
 import MyList from "../my-list/my-list";
 import Player from "../player/player";
+import MovieType from "../../types";
 
 const App = (props) => {
-  const {name, genre, year} = props;
+  const {name, genre, year, movies} = props;
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <Main name={name} genre={genre} year={year}/>
+          <Main name={name} genre={genre} year={year} movies={movies}/>
         </Route>
         <Route exact path="/login">
           <Login />
@@ -23,13 +24,13 @@ const App = (props) => {
           <MyList />
         </Route>
         <Route exact path="/films/:id">
-          <Film />
+          <Movie movies={movies}/>
         </Route>
         <Route exact path="/films/:id/review">
-          <AddReview />
+          <AddReview movies={movies}/>
         </Route>
         <Route exact path="/player/:id">
-          <Player />
+          <Player movies={movies}/>
         </Route>
       </Switch>
     </BrowserRouter>
@@ -40,6 +41,7 @@ App.propTypes = {
   name: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
+  movies: PropTypes.arrayOf(MovieType),
 };
 
 export default App;
