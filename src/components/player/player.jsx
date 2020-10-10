@@ -1,17 +1,27 @@
 import React from "react";
+import PropTypes from "prop-types";
+import MovieType from "../../types";
+import {withRouter} from "react-router-dom";
 
-const Player = () => {
+const Player = (props) => {
+  const {match: {params: {id}}, movies} = props;
+  const movie = movies[id];
+
+  const handleExitButtonClick = (movieID) => {
+    props.history.push(`/films/${movieID}`);
+  };
+
   return (
     <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+      <video src={movie.video} className="player__video" poster={movie.picture}></video>
 
-      <button type="button" className="player__exit">Exit</button>
+      <button type="button" className="player__exit" onClick={() => handleExitButtonClick(movie.id)}>Exit</button>
 
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
             <progress className="player__progress" value="30" max="100"></progress>
-            <div className="player__toggler" style="left: 30%;">Toggler</div>
+            <div className="player__toggler" style={{left: `30%`}}>Toggler</div>
           </div>
           <div className="player__time-value">1:30:29</div>
         </div>
@@ -37,4 +47,16 @@ const Player = () => {
   );
 };
 
-export default Player;
+Player.propTypes = {
+  movies: PropTypes.arrayOf(MovieType).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired
+    }).isRequired,
+  }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired,
+};
+
+export default withRouter(Player);

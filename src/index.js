@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDom from "react-dom";
 import App from "./components/app/app";
+import movies from "./mocks/movies";
 
 const FilmSetting = {
   NAME: `The Grand Budapest Hotel`,
@@ -9,6 +10,6 @@ const FilmSetting = {
 };
 
 ReactDom.render(
-    <App name={FilmSetting.NAME} genre={FilmSetting.GENRE} year={FilmSetting.YEAR}/>,
+    <App name={FilmSetting.NAME} genre={FilmSetting.GENRE} year={FilmSetting.YEAR} movies={movies}/>,
     document.querySelector(`#root`)
 );
