@@ -16,14 +16,16 @@ class MoviesList extends PureComponent {
   }
 
   _handleMouseEnterCard(id) {
-    this.setState({
-      activeMovie: id,
-    });
+    setTimeout(() => {
+      this.setState({
+        activeMovie: id,
+      });
+    }, 1000);
   }
 
   _handleMouseLeaveCard() {
     this.setState({
-      activeMovie: null,
+      activeMovie: ``,
     });
   }
 
@@ -38,7 +40,14 @@ class MoviesList extends PureComponent {
       <React.Fragment>
         {
           movies.map((movie, i) => (
-            <MovieCard key={`movie ${i}`} movie={movie} onMouseEnterCard={this._handleMouseEnterCard} onMouseLeaveCard={this._handleMouseLeaveCard} onCardClick={this._handleCardClick}/>
+            <MovieCard
+              key={`movie ${i}`}
+              movie={movie}
+              onMouseEnterCard={this._handleMouseEnterCard}
+              onMouseLeaveCard={this._handleMouseLeaveCard}
+              onCardClick={this._handleCardClick}
+              isPlaying={movie.id === this.state.activeMovie}
+            />
           ))
         }
       </React.Fragment>
