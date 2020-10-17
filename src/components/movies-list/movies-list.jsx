@@ -8,15 +8,17 @@ class MoviesList extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      activeMovie: null,
+      activeMovie: ``,
     };
+    this.timeout = null;
     this._handleMouseEnterCard = this._handleMouseEnterCard.bind(this);
     this._handleMouseLeaveCard = this._handleMouseLeaveCard.bind(this);
     this._handleCardClick = this._handleCardClick.bind(this);
   }
 
   _handleMouseEnterCard(id) {
-    setTimeout(() => {
+    clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
       this.setState({
         activeMovie: id,
       });
@@ -24,6 +26,7 @@ class MoviesList extends PureComponent {
   }
 
   _handleMouseLeaveCard() {
+    clearTimeout(this.timeout);
     this.setState({
       activeMovie: ``,
     });
@@ -31,6 +34,10 @@ class MoviesList extends PureComponent {
 
   _handleCardClick(id) {
     this.props.history.push(`/films/${id}`);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timeout);
   }
 
   render() {
