@@ -27,7 +27,7 @@ const GenresList = (props) => {
 };
 
 GenresList.propTypes = {
-  movies: PropTypes.arrayOf(MovieProp),
+  movies: PropTypes.arrayOf(MovieProp).isRequired,
   onGenreClick: PropTypes.func.isRequired,
 };
 
