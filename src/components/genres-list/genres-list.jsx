@@ -11,11 +11,15 @@ const GenresList = (props) => {
   return (
     <ul className="catalog__genres-list">
       {uniqueGenres.map((genre, i) => (
-        <li key={`${i}-item`} className="catalog__genres-item" onClick={(evt) => {
-          evt.preventDefault();
-          onGenreClick(genre, movies);
-        }}>
-          <a href="#" className="catalog__genres-link">{genre}</a>
+        <li key={`${i}-item`} className="catalog__genres-item">
+          <a 
+            href="#" 
+            className="catalog__genres-link"
+            onClick={(evt) => {
+              evt.preventDefault();
+              onGenreClick(genre, movies);
+            }}
+          >{genre}</a>
         </li>
       ))}
     </ul>
