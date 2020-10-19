@@ -8,7 +8,7 @@ const initialState = {
   filteredMovies: movies,
 };
 
-const reducer = (state = initialState, action) => {
+export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_GENRE:
       return extend(state, {
@@ -22,5 +22,3 @@ const reducer = (state = initialState, action) => {
 
   return state;
 };
-
-export {reducer};
