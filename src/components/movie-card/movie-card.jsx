@@ -7,7 +7,7 @@ const MovieCard = (props) => {
   const {movie, onMouseEnterCard, onMouseLeaveCard, onCardClick, isPlaying} = props;
 
   return (
-    <article className="small-movie-card catalog__movies-card" onMouseEnter={() => onMouseEnterCard(movie.id)} onMouseLeave={onMouseLeaveCard} onClick={() => onCardClick(movie.id)}>
+    <article className="small-movie-card catalog__movies-card" onMouseEnter={onMouseEnterCard} onMouseLeave={onMouseLeaveCard} onClick={onCardClick}>
       <div className="small-movie-card__image">
         {isPlaying ? <VideoPlayer isPlaying={isPlaying} src={movie.video} muted={true} isFullScreen={false}/> : <img src={movie.picture} alt={movie.name} width="280" height="175" />}
       </div>

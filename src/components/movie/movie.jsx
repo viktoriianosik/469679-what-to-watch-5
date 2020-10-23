@@ -3,15 +3,20 @@ import PropTypes from "prop-types";
 import MovieType from "../../types";
 import {Link, withRouter} from "react-router-dom";
 import Tabs from "../tabs/tabs";
+import withTabs from "../../hocs/with-tabs/with-tabs";
 import MoviesList from "../movies-list/movies-list";
+import {SIMILAR_MOVIES_COUNT} from "../../const";
+import withMoviesList from "../../hocs/with-movies-list/with-movies-list";
+
+const MoviesListWrapper = withMoviesList(MoviesList);
+const TabsWrapper = withTabs(Tabs);
 
 const Movie = (props) => {
   const {match: {params: {id}}, movies} = props;
   const movie = movies[id];
-  const similarMovies = movies.
-    filter((item) => item.genre === movie.genre).
-    filter((item) => item !== movie).
-    slice(0, 4);
+  const similarMovies = movies
+    .filter((item) => item.genre === movie.genre && item.id !== movie.id)
+    .slice(0, SIMILAR_MOVIES_COUNT);
 
   const handlePlayButtonClick = (movieID) => {
     props.history.push(`/player/${movieID}`);
@@ -70,7 +75,7 @@ const Movie = (props) => {
               <img src={movie.picture} alt={movie.name} width="218" height="327" />
             </div>
             <div className="movie-card__desc">
-              <Tabs movie={movie}/>
+              <TabsWrapper movie={movie}/>
             </div>
           </div>
         </div>
@@ -79,7 +84,7 @@ const Movie = (props) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
           <div className="catalog__movies-list">
-            <MoviesList movies={similarMovies} />
+            <MoviesListWrapper movies={similarMovies} />
           </div>
         </section>
 

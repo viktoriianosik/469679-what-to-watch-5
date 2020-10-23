@@ -2,9 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MoviesList from "../movies-list/movies-list";
 import GenresList from "../genres-list/genres-list";
+import withMoviesList from "../../hocs/with-movies-list/with-movies-list";
 import MovieType from "../../types";
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action';
+
+const MoviesListWrapper = withMoviesList(MoviesList);
 
 const Main = (props) => {
   const {name, genre, year, movies, filteredMovies, onGenreClick} = props;
@@ -70,7 +73,7 @@ const Main = (props) => {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
         <GenresList movies={movies} onGenreClick={onGenreClick}/>
         <div className="catalog__movies-list">
-          <MoviesList movies={filteredMovies} />
+          <MoviesListWrapper movies={filteredMovies} />
         </div>
 
         <div className="catalog__more">
