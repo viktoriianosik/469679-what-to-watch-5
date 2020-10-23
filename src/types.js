@@ -17,4 +17,3 @@ export default PropTypes.shape({
     count: PropTypes.number.isRequired
   }).isRequired
 }).isRequired;
-
