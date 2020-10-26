@@ -1,72 +1,39 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import MovieCard from "../movie-card/movie-card";
 import MovieType from "../../types";
-import {withRouter} from "react-router-dom";
 
-class MoviesList extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeMovie: ``,
-    };
-    this.timeout = null;
-    this._handleMouseEnterCard = this._handleMouseEnterCard.bind(this);
-    this._handleMouseLeaveCard = this._handleMouseLeaveCard.bind(this);
-    this._handleCardClick = this._handleCardClick.bind(this);
-  }
+const MoviesList = (props) => {
+  const {movies, onMouseEnterCard, onMouseLeaveCard, onCardClick, activeMovie} = props;
 
-  _handleMouseEnterCard(id) {
-    clearTimeout(this.timeout);
-    this.timeout = setTimeout(() => {
-      this.setState({
-        activeMovie: id,
-      });
-    }, 1000);
-  }
-
-  _handleMouseLeaveCard() {
-    clearTimeout(this.timeout);
-    this.setState({
-      activeMovie: ``,
-    });
-  }
-
-  _handleCardClick(id) {
-    this.props.history.push(`/films/${id}`);
-  }
-
-  componentWillUnmount() {
-    clearTimeout(this.timeout);
-  }
-
-  render() {
-    const {movies} = this.props;
-
-    return (
-      <React.Fragment>
-        {
-          movies.map((movie, i) => (
-            <MovieCard
-              key={`movie ${i}`}
-              movie={movie}
-              onMouseEnterCard={this._handleMouseEnterCard}
-              onMouseLeaveCard={this._handleMouseLeaveCard}
-              onCardClick={this._handleCardClick}
-              isPlaying={movie.id === this.state.activeMovie}
-            />
-          ))
-        }
-      </React.Fragment>
-    );
-  }
-}
+  return (
+    <React.Fragment>
+      {
+        movies.map((movie, i) => (
+          <MovieCard
+            key={`movie ${i}`}
+            movie={movie}
+            onMouseEnterCard={() => {
+              onMouseEnterCard(movie.id);
+            }}
+            onMouseLeaveCard={onMouseLeaveCard}
+            onCardClick={() => {
+              onCardClick(movie.id);
+            }}
+            isPlaying={movie.id === activeMovie}
+          />
+        ))
+      }
+    </React.Fragment>
+  );
+};
 
 MoviesList.propTypes = {
   movies: PropTypes.arrayOf(MovieType).isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired
-  }).isRequired,
+  activeMovie: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  onMouseEnterCard: PropTypes.func.isRequired,
+  onMouseLeaveCard: PropTypes.func.isRequired,
+  onCardClick: PropTypes.func.isRequired,
 };
 
-export default withRouter(MoviesList);
+export default MoviesList;
