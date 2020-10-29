@@ -7,7 +7,10 @@ import AddReview from "../add-review/add-review";
 import Movie from "../movie/movie";
 import MyList from "../my-list/my-list";
 import Player from "../player/player";
+import withPlayer from "../../hocs/with-player/with-player";
 import MovieType from "../../types";
+
+const PlayerWrapper = withPlayer(Player);
 
 const App = (props) => {
   const {name, genre, year, movies} = props;
@@ -30,7 +33,7 @@ const App = (props) => {
           <AddReview movies={movies}/>
         </Route>
         <Route exact path="/player/:id">
-          <Player movies={movies}/>
+          <PlayerWrapper movies={movies}/>
         </Route>
       </Switch>
     </BrowserRouter>

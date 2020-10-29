@@ -23,7 +23,7 @@ export default [
     id: 1,
     name: `Fantastic Beasts: The Crimes of Grindelwald`,
     picture: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
-    video: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    video: `http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4`,
     genre: `Drama`,
     released: 2014,
     director: `Wes Andreson`,

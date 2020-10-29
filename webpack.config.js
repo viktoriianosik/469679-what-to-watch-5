@@ -1,4 +1,5 @@
 const path = require('path');
+const MomentLocalesPlugin = require(`moment-locales-webpack-plugin`);
 
 module.exports = {
     entry: './src/index.js',
@@ -21,6 +22,9 @@ module.exports = {
                     loader: 'babel-loader',
                 },
             }
+        ],
+        plugins: [
+          new MomentLocalesPlugin()
         ],
     },
     resolve: {
