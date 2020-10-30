@@ -1,34 +1,33 @@
-import React, {createRef, Fragment, PureComponent} from "react";
+import React, {Fragment, PureComponent} from "react";
 import PropTypes from "prop-types";
 
 class VideoPlayer extends PureComponent {
   constructor(props) {
     super(props);
-
-    this._videoRef = createRef();
-  }
-
-  componentDidMount() {
-    const {src} = this.props;
-    const video = this._videoRef.current;
-
-    video.src = src;
   }
 
   render() {
-    const {isPlaying} = this.props;
+    const {isPlaying, muted, onTimeUpdate} = this.props;
 
     return (
       <Fragment>
-        <video autoPlay={isPlaying} ref={this._videoRef} width="280" height="175" muted="muted"></video>
+        <video autoPlay={isPlaying} ref={this.props.innerRef} className="player__video" muted={muted} onTimeUpdate={onTimeUpdate}></video>
       </Fragment>
     );
   }
 }
 
 VideoPlayer.propTypes = {
-  src: PropTypes.string.isRequired,
   isPlaying: PropTypes.bool.isRequired,
+  muted: PropTypes.bool.isRequired,
+  videoRef: PropTypes.string,
+  onTimeUpdate: PropTypes.func.isRequired,
+  innerRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({current: PropTypes.instanceOf(Element)})
+  ]),
 };
 
-export default VideoPlayer;
+export default React.forwardRef((props, ref) => <VideoPlayer
+  innerRef={ref} {...props}
+/>);
