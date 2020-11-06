@@ -72,13 +72,7 @@ const Main = (props) => {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
         <GenresList movies={movies} onGenreClick={onGenreClick}/>
-        <div className="catalog__movies-list">
-          <MoviesListWrapper movies={filteredMovies} />
-        </div>
-
-        <div className="catalog__more">
-          <button className="catalog__button" type="button">Show more</button>
-        </div>
+        <MoviesListWrapper movies={filteredMovies} />
       </section>
 
       <footer className="page-footer">

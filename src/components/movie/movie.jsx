@@ -83,9 +83,7 @@ const Movie = (props) => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <div className="catalog__movies-list">
-            <MoviesListWrapper movies={similarMovies} />
-          </div>
+          <MoviesListWrapper movies={similarMovies} />
         </section>
 
         <footer className="page-footer">

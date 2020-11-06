@@ -5,8 +5,10 @@ import MovieProp from "../../types";
 const GenresList = (props) => {
   const {movies, onGenreClick} = props;
   const genres = [`All genres`];
-  const uniqueGenres = [...new Set(genres)].slice(0, 9);
+  let uniqueGenres = [];
+
   movies.forEach((movie) => genres.push(movie.genre));
+  uniqueGenres = [...new Set(genres)].slice(0, 9);
 
   return (
     <ul className="catalog__genres-list">
