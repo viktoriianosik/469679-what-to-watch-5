@@ -23,10 +23,10 @@ module.exports = {
                 },
             }
         ],
-        plugins: [
-          new MomentLocalesPlugin()
-        ],
     },
+    plugins: [
+      new MomentLocalesPlugin(),
+    ],
     resolve: {
         extensions: ['.js', '.jsx']
     },
