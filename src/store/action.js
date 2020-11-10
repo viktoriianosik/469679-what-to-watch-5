@@ -11,7 +11,7 @@ export const ActionCreator = {
     type: ActionType.CHANGE_GENRE,
     payload: genre,
   }),
-  changeMoviesCountiNList: (moviesCount) => ({
+  changeMoviesCountList: (moviesCount) => ({
     type: ActionType.CHANGE_MOVIES_COUNT_IN_LIST,
     payload: moviesCount,
   }),

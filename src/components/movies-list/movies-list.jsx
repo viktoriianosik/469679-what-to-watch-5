@@ -61,7 +61,7 @@ const mapStateToProps = ({PROCESS}) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onMoreButtonClick(moviesCount) {
-    dispatch(ActionCreator.changeMoviesCountiNList(moviesCount));
+    dispatch(ActionCreator.changeMoviesCountList(moviesCount));
   }
 });
 
