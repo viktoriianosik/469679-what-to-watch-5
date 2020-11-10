@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import MoviesList from "../movies-list/movies-list";
 import GenresList from "../genres-list/genres-list";
 import withMoviesList from "../../hocs/with-movies-list/with-movies-list";
-import MovieType from "../../types";
+import MoviePropTypes from "../movie/movie-props";
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action';
+import {getMoviesByGenre, getMovies} from "../../store/selectors";
 
 const MoviesListWrapper = withMoviesList(MoviesList);
 
@@ -96,20 +97,19 @@ Main.propTypes = {
   name: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
-  movies: PropTypes.arrayOf(MovieType),
-  filteredMovies: PropTypes.arrayOf(MovieType),
+  movies: PropTypes.arrayOf(MoviePropTypes),
+  filteredMovies: PropTypes.arrayOf(MoviePropTypes),
   onGenreClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  movies: state.movies,
-  filteredMovies: state.filteredMovies,
+  movies: getMovies(state),
+  filteredMovies: getMoviesByGenre(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onGenreClick(genre, movies) {
+  onGenreClick(genre) {
     dispatch(ActionCreator.changeGenre(genre));
-    dispatch(ActionCreator.filterMoviesList(genre, movies));
   }
 });
 

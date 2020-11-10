@@ -1,6 +1,6 @@
 import React, {createRef, PureComponent} from "react";
 import PropTypes from "prop-types";
-import MovieType from "../../types";
+import MoviePropTypes from "../movie/movie-props";
 import {withRouter} from "react-router-dom";
 import VideoPlayer from "../video-player/video-player";
 
@@ -9,12 +9,12 @@ class Player extends PureComponent {
     super(props);
 
     const {match: {params: {id}}, movies} = this.props;
-    this.movie = movies[id];
+    this.movie = movies.find((item) => item.id === parseInt(id, 10));
     this._videoRef = createRef();
   }
 
   componentDidMount() {
-    const src = this.movie.video;
+    const src = this.movie.video_link;
     const video = this._videoRef.current;
     video.src = src;
   }
@@ -81,7 +81,7 @@ class Player extends PureComponent {
 }
 
 Player.propTypes = {
-  movies: PropTypes.arrayOf(MovieType).isRequired,
+  movies: PropTypes.arrayOf(MoviePropTypes).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired

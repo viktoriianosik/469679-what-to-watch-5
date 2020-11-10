@@ -1,11 +1,12 @@
 import React, {PureComponent} from "react";
 import {TABS} from "../../const";
+import {store} from "../../index";
+import {fetchReviewsList} from "../../store/api-action";
 
 const withTabs = (Component) => {
   class WithTabs extends PureComponent {
     constructor(props) {
       super(props);
-
       this.state = {
         activeTab: TABS.OVERVIEW,
       };
@@ -13,10 +14,13 @@ const withTabs = (Component) => {
       this.handleTabClick = this.handleTabClick.bind(this);
     }
 
-    handleTabClick(tab) {
+    handleTabClick(tab, id) {
       this.setState({
         activeTab: tab,
       });
+      if (tab === TABS.REVIEWS) {
+        store.dispatch(fetchReviewsList(id));
+      }
     }
 
     render() {
