@@ -9,7 +9,7 @@ const MovieOverview = ({movie}) => {
         <div className="movie-rating__score">{movie.rating}</div>
         <p className="movie-rating__meta">
           <span className="movie-rating__level">{convertRatingToLevel(movie.rating)}</span>
-          <span className="movie-rating__count">{movie.scores_count} ratings</span>
+          <span className="movie-rating__count">{movie.scoresCount} ratings</span>
         </p>
       </div>
       <div className="movie-card__text">

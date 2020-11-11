@@ -14,7 +14,7 @@ class Player extends PureComponent {
   }
 
   componentDidMount() {
-    const src = this.movie.video_link;
+    const src = this.movie.videoLink;
     const video = this._videoRef.current;
     video.src = src;
   }

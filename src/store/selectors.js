@@ -1,9 +1,10 @@
 import {createSelector} from "reselect";
 import {NameSpaces} from "./reducers/root-reducer";
 import {filterByGenre} from "../filter";
+import camelCase from "camelcase-keys";
 
 export const getMovies = (state) => {
-  return state[NameSpaces.DATA].movies;
+  return camelCase(state[NameSpaces.DATA].movies);
 };
 
 export const getGenre = (state) => {

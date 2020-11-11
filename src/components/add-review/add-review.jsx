@@ -8,10 +8,10 @@ const AddReview = (props) => {
   const movie = movies.find((item) => item.id === parseInt(id, 10));
 
   return (
-    <section className="movie-card movie-card--full" style={{background: `${movie.background_color}`}}>
+    <section className="movie-card movie-card--full" style={{background: `${movie.backgroundColor}`}}>
       <div className="movie-card__header">
         <div className="movie-card__bg">
-          <img src={movie.background_image} alt="The Grand Budapest Hotel" />
+          <img src={movie.backgroundImage} alt="The Grand Budapest Hotel" />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -44,7 +44,7 @@ const AddReview = (props) => {
         </header>
 
         <div className="movie-card__poster movie-card__poster--small">
-          <img src={movie.poster_image} alt="The Grand Budapest Hotel poster" width="218" height="327" />
+          <img src={movie.posterImage} alt="The Grand Budapest Hotel poster" width="218" height="327" />
         </div>
       </div>
 

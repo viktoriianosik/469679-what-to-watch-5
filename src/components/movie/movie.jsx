@@ -29,10 +29,10 @@ class Movie extends PureComponent {
 
     return (
       <React.Fragment>
-        <section className="movie-card movie-card--full" style={{background: `${movie.background_color}`}}>
+        <section className="movie-card movie-card--full" style={{background: `${movie.backgroundColor}`}}>
           <div className="movie-card__hero">
             <div className="movie-card__bg">
-              <img src={movie.background_image} alt={movie.name} />
+              <img src={movie.backgroundImage} alt={movie.name} />
             </div>
             <h1 className="visually-hidden">WTW</h1>
             <header className="page-header movie-card__head">
@@ -77,7 +77,7 @@ class Movie extends PureComponent {
           <div className="movie-card__wrap movie-card__translate-top">
             <div className="movie-card__info">
               <div className="movie-card__poster movie-card__poster--big">
-                <img src={movie.poster_image} alt={movie.name} width="218" height="327" />
+                <img src={movie.posterImage} alt={movie.name} width="218" height="327" />
               </div>
               <div className="movie-card__desc">
                 <TabsWrapper movie={movie}/>

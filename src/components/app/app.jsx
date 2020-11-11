@@ -12,6 +12,7 @@ import withPlayer from "../../hocs/with-player/with-player";
 import MoviePropTypes from "../movie/movie-props";
 import ReviewPropTypes from "../movie-reviews/movie-review-props";
 import {connect} from "react-redux";
+import {getMovies} from "../../store/selectors";
 
 const PlayerWrapper = withPlayer(Player);
 const AddReviewWrapper = withAddReview(AddReview);
@@ -52,8 +53,8 @@ App.propTypes = {
   reviews: PropTypes.arrayOf(ReviewPropTypes),
 };
 
-const mapStateToProps = ({DATA}) => ({
-  movies: DATA.movies,
+const mapStateToProps = (state) => ({
+  movies: getMovies(state),
 });
 
 export default connect(mapStateToProps)(App);
