@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Switch, Route, BrowserRouter} from "react-router-dom";
+import {Switch, Route, Router as BrowserRouter} from "react-router-dom";
 import Main from "../main/main";
 import Login from "../login/login";
 import AddReview from "../add-review/add-review";
@@ -13,6 +13,8 @@ import MoviePropTypes from "../movie/movie-props";
 import ReviewPropTypes from "../movie-reviews/movie-review-props";
 import {connect} from "react-redux";
 import {getMovies} from "../../store/selectors";
+import PrivateRoute from "../private-route/private-route";
+import browserHistory from "../../browser-history";
 
 const PlayerWrapper = withPlayer(Player);
 const AddReviewWrapper = withAddReview(AddReview);
@@ -20,7 +22,7 @@ const AddReviewWrapper = withAddReview(AddReview);
 const App = (props) => {
   const {name, genre, year, movies} = props;
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path="/">
           <Main name={name} genre={genre} year={year} movies={movies}/>
@@ -34,9 +36,13 @@ const App = (props) => {
         <Route exact path="/films/:id">
           <Movie movies={movies}/>
         </Route>
-        <Route exact path="/films/:id/review">
-          <AddReviewWrapper movies={movies}/>
-        </Route>
+        <PrivateRoute
+          exact
+          path={`/films/:id/review`}
+          render={() => {
+            return <AddReviewWrapper movies={movies}/>;
+          }}
+        />
         <Route exact path="/player/:id">
           <PlayerWrapper movies={movies}/>
         </Route>

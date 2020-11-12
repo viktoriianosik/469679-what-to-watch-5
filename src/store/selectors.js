@@ -18,3 +18,7 @@ export const getMoviesByGenre = createSelector(
       return filterByGenre(genre, movies);
     }
 );
+
+export const getAuthorizationStatus = (state) => {
+  return state[NameSpaces.USER].authorizationStatus;
+};
