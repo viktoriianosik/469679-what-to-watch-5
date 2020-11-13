@@ -9,7 +9,10 @@ import Movie from "../movie/movie";
 import MyList from "../my-list/my-list";
 import Player from "../player/player";
 import withPlayer from "../../hocs/with-player/with-player";
-import MovieType from "../../types";
+import MoviePropTypes from "../movie/movie-props";
+import ReviewPropTypes from "../movie-reviews/movie-review-props";
+import {connect} from "react-redux";
+import {getMovies} from "../../store/selectors";
 
 const PlayerWrapper = withPlayer(Player);
 const AddReviewWrapper = withAddReview(AddReview);
@@ -46,7 +49,12 @@ App.propTypes = {
   name: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
-  movies: PropTypes.arrayOf(MovieType),
+  movies: PropTypes.arrayOf(MoviePropTypes),
+  reviews: PropTypes.arrayOf(ReviewPropTypes),
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  movies: getMovies(state),
+});
+
+export default connect(mapStateToProps)(App);

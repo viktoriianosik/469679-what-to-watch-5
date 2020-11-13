@@ -1,28 +1,28 @@
 import React from "react";
 import PropTypes from "prop-types";
-import MovieType from "../../types";
+import MoviePropTypes from "../movie/movie-props";
 import {Link, withRouter} from "react-router-dom";
 
 const AddReview = (props) => {
   const {match: {params: {id}}, movies, userStars, onInputChange, onTextChange} = props;
-  const movie = movies[id];
+  const movie = movies.find((item) => item.id === parseInt(id, 10));
 
   return (
-    <section className="movie-card movie-card--full">
+    <section className="movie-card movie-card--full" style={{background: `${movie.backgroundColor}`}}>
       <div className="movie-card__header">
         <div className="movie-card__bg">
-          <img src={movie.picture} alt="The Grand Budapest Hotel" />
+          <img src={movie.backgroundImage} alt="The Grand Budapest Hotel" />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
 
         <header className="page-header">
           <div className="logo">
-            <a href="main.html" className="logo__link">
+            <Link to={`/`} className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <nav className="breadcrumbs">
@@ -44,7 +44,7 @@ const AddReview = (props) => {
         </header>
 
         <div className="movie-card__poster movie-card__poster--small">
-          <img src={movie.picture} alt="The Grand Budapest Hotel poster" width="218" height="327" />
+          <img src={movie.posterImage} alt="The Grand Budapest Hotel poster" width="218" height="327" />
         </div>
       </div>
 
@@ -92,7 +92,7 @@ const AddReview = (props) => {
 };
 
 AddReview.propTypes = {
-  movies: PropTypes.arrayOf(MovieType).isRequired,
+  movies: PropTypes.arrayOf(MoviePropTypes).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired

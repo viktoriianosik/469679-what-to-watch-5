@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import MovieCard from "../movie-card/movie-card";
-import MovieType from "../../types";
+import MoviePropTypes from "../movie/movie-props";
 import ShowMore from "../show-more/show-more";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
@@ -46,7 +46,7 @@ const MoviesList = (props) => {
 };
 
 MoviesList.propTypes = {
-  movies: PropTypes.arrayOf(MovieType).isRequired,
+  movies: PropTypes.arrayOf(MoviePropTypes).isRequired,
   activeMovie: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   onMouseEnterCard: PropTypes.func.isRequired,
   onMouseLeaveCard: PropTypes.func.isRequired,
@@ -55,13 +55,13 @@ MoviesList.propTypes = {
   moviesCount: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  moviesCount: state.moviesCount
+const mapStateToProps = ({PROCESS}) => ({
+  moviesCount: PROCESS.moviesCount
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onMoreButtonClick(moviesCount) {
-    dispatch(ActionCreator.changeMoviesCountiNList(moviesCount));
+    dispatch(ActionCreator.changeMoviesCountList(moviesCount));
   }
 });
 

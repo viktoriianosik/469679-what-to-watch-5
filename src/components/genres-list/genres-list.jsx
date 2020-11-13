@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import MovieProp from "../../types";
+import MoviePropTypes from "../movie/movie-props";
+import {connect} from "react-redux";
 
 const GenresList = (props) => {
-  const {movies, onGenreClick} = props;
+  const {movies, onGenreClick, activeGenre} = props;
   const genres = [`All genres`];
   let uniqueGenres = [];
 
@@ -13,7 +14,7 @@ const GenresList = (props) => {
   return (
     <ul className="catalog__genres-list">
       {uniqueGenres.map((genre, i) => (
-        <li key={`${i}-item`} className="catalog__genres-item">
+        <li key={`${i}-item`} className={`catalog__genres-item ${activeGenre === genre && `catalog__genres-item--active`}`}>
           <a
             href="#"
             className="catalog__genres-link"
@@ -29,8 +30,13 @@ const GenresList = (props) => {
 };
 
 GenresList.propTypes = {
-  movies: PropTypes.arrayOf(MovieProp).isRequired,
+  movies: PropTypes.arrayOf(MoviePropTypes).isRequired,
   onGenreClick: PropTypes.func.isRequired,
+  activeGenre: PropTypes.string.isRequired,
 };
 
-export default GenresList;
+const mapStateToProps = ({PROCESS}) => ({
+  activeGenre: PROCESS.genre,
+});
+
+export default connect(mapStateToProps)(GenresList);

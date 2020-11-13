@@ -1,10 +1,15 @@
 import React from "react";
 import ReactDom from "react-dom";
 import {Provider} from "react-redux";
-import {createStore} from "redux";
+import {applyMiddleware, createStore} from "redux";
 import App from "./components/app/app";
-import movies from "./mocks/movies";
-import {reducer} from "./store/reducer";
+import rootReducer from "./store/reducers/root-reducer";
+import {createAPI} from "./services/api";
+import {ActionCreator} from "./store/action";
+import {AuthorizationStatus} from "./const";
+import thunk from "redux-thunk";
+import {fetchMovieList} from "./store/api-action";
+import {composeWithDevTools} from "redux-devtools-extension";
 
 const FilmSetting = {
   NAME: `The Grand Budapest Hotel`,
@@ -12,14 +17,28 @@ const FilmSetting = {
   YEAR: 2014,
 };
 
-const store = createStore(
-    reducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+const api = createAPI(
+    () => store.dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.NO_AUTH))
 );
 
-ReactDom.render(
-    <Provider store = {store}>
-      <App name={FilmSetting.NAME} genre={FilmSetting.GENRE} year={FilmSetting.YEAR} movies={movies}/>
-    </Provider>,
-    document.querySelector(`#root`)
+const store = createStore(
+    rootReducer,
+    composeWithDevTools(
+        applyMiddleware(thunk.withExtraArgument(api))
+    )
 );
+
+Promise.all([
+  store.dispatch(fetchMovieList()),
+])
+.then(() => {
+  ReactDom.render(
+      <Provider store = {store}>
+        <App name={FilmSetting.NAME} genre={FilmSetting.GENRE} year={FilmSetting.YEAR}/>
+      </Provider>,
+      document.querySelector(`#root`)
+  );
+});
+
+export {store};
+
