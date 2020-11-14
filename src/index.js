@@ -8,8 +8,9 @@ import {createAPI} from "./services/api";
 import {ActionCreator} from "./store/action";
 import {AuthorizationStatus} from "./const";
 import thunk from "redux-thunk";
-import {fetchMovieList} from "./store/api-action";
+import {fetchMovieList, checkAuth} from "./store/api-action";
 import {composeWithDevTools} from "redux-devtools-extension";
+import {redirect} from "./store/middlewares/redirect";
 
 const FilmSetting = {
   NAME: `The Grand Budapest Hotel`,
@@ -24,12 +25,14 @@ const api = createAPI(
 const store = createStore(
     rootReducer,
     composeWithDevTools(
-        applyMiddleware(thunk.withExtraArgument(api))
+        applyMiddleware(thunk.withExtraArgument(api)),
+        applyMiddleware(redirect)
     )
 );
 
 Promise.all([
   store.dispatch(fetchMovieList()),
+  store.dispatch(checkAuth()),
 ])
 .then(() => {
   ReactDom.render(

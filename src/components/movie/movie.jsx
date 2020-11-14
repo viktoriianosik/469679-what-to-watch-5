@@ -7,6 +7,7 @@ import withTabs from "../../hocs/with-tabs/with-tabs";
 import MoviesList from "../movies-list/movies-list";
 import {SIMILAR_MOVIES_COUNT} from "../../const";
 import withMoviesList from "../../hocs/with-movies-list/with-movies-list";
+import Header from "../header/header";
 
 const MoviesListWrapper = withMoviesList(MoviesList);
 const TabsWrapper = withTabs(Tabs);
@@ -35,20 +36,7 @@ class Movie extends PureComponent {
               <img src={movie.backgroundImage} alt={movie.name} />
             </div>
             <h1 className="visually-hidden">WTW</h1>
-            <header className="page-header movie-card__head">
-              <div className="logo">
-                <Link to={`/`} className="logo__link">
-                  <span className="logo__letter logo__letter--1">W</span>
-                  <span className="logo__letter logo__letter--2">T</span>
-                  <span className="logo__letter logo__letter--3">W</span>
-                </Link>
-              </div>
-              <div className="user-block">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </div>
-              </div>
-            </header>
+            <Header />
             <div className="movie-card__wrap">
               <div className="movie-card__desc">
                 <h2 className="movie-card__title">{movie.name}</h2>
