@@ -3,13 +3,18 @@ import PropTypes from "prop-types";
 import MoviePropTypes from "../movie/movie-props";
 import {Link, withRouter} from "react-router-dom";
 import Header from "../header/header";
+import ErrorMessage from "../error-message/error-message";
+import {compose} from "redux";
+import {connect} from "react-redux";
+import {getErrorMessage} from "../../store/selectors";
 
 const AddReview = (props) => {
-  const {match: {params: {id}}, movies, userStars, onInputChange, onTextChange} = props;
+  const {match: {params: {id}}, movies, userStars, onInputChange, onTextChange, onSubmit, errorMessage} = props;
   const movie = movies.find((item) => item.id === parseInt(id, 10));
 
   return (
     <section className="movie-card movie-card--full" style={{background: `${movie.backgroundColor}`}}>
+      {errorMessage.length !== 0 && <ErrorMessage message={errorMessage}/>}
       <div className="movie-card__header">
         <div className="movie-card__bg">
           <img src={movie.backgroundImage} alt="The Grand Budapest Hotel" />
@@ -39,6 +44,7 @@ const AddReview = (props) => {
           className="add-review__form"
           onSubmit={(evt) => {
             evt.preventDefault();
+            onSubmit(movie.id);
           }}
         >
           <div className="rating">
@@ -62,6 +68,8 @@ const AddReview = (props) => {
               className="add-review__textarea"
               name="review-text" id="review-text"
               placeholder="Review text"
+              minLength="50"
+              maxLength="400"
               onChange={(evt) => onTextChange(evt)}
             >
             </textarea>
@@ -73,7 +81,6 @@ const AddReview = (props) => {
       </div>
     </section>
   );
-
 };
 
 AddReview.propTypes = {
@@ -86,6 +93,12 @@ AddReview.propTypes = {
   userStars: PropTypes.arrayOf(PropTypes.bool).isRequired,
   onInputChange: PropTypes.func.isRequired,
   onTextChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  errorMessage: PropTypes.string.isRequired,
 };
 
-export default withRouter(AddReview);
+const mapStateToProps = (state) => ({
+  errorMessage: getErrorMessage(state),
+});
+
+export default compose(withRouter, connect(mapStateToProps))(AddReview);

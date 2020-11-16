@@ -18,4 +18,4 @@ export default PropTypes.shape({
   rating: PropTypes.number.isRequired,
   scoresCount: PropTypes.number.isRequired,
   isFavorite: PropTypes.bool.isRequired,
-}).isRequired;
+});

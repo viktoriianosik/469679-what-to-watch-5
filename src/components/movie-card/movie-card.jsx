@@ -19,7 +19,7 @@ const MovieCard = (props) => {
 };
 
 MovieCard.propTypes = {
-  movie: MoviePropTypes,
+  movie: MoviePropTypes.isRequired,
   onMouseEnterCard: PropTypes.func.isRequired,
   onMouseLeaveCard: PropTypes.func.isRequired,
   onCardClick: PropTypes.func.isRequired,

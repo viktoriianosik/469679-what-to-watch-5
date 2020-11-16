@@ -1,4 +1,5 @@
 import React, {Fragment} from "react";
+import PropTypes from "prop-types";
 import {getTimeFromMins} from "../../utils";
 import MoviePropTypes from "../movie/movie-props";
 
@@ -45,7 +46,7 @@ const MovieDetails = ({movie}) => {
 };
 
 MovieDetails.propTypes = {
-  movie: MoviePropTypes,
+  movie: MoviePropTypes.isRequired,
 };
 
 export default MovieDetails;

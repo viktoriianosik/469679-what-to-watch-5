@@ -20,7 +20,7 @@ const Tabs = (props) => {
             <li key={`movie-nav__item-${i}`} className={`movie-nav__item ${tab === activeTab ? `movie-nav__item--active` : ``}`}>
               <a href="#" className="movie-nav__link" onClick={(evt) => {
                 evt.preventDefault();
-                onTabClick(tab, movie.id);
+                onTabClick(tab);
               }}>{tab}</a>
             </li>
           ))}
@@ -34,7 +34,7 @@ const Tabs = (props) => {
 };
 
 Tabs.propTypes = {
-  movie: MoviePropTypes,
+  movie: MoviePropTypes.isRequired,
   reviews: PropTypes.arrayOf(ReviewPropTypes).isRequired,
   activeTab: PropTypes.string.isRequired,
   onTabClick: PropTypes.func.isRequired,

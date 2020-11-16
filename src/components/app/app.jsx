@@ -12,7 +12,7 @@ import withPlayer from "../../hocs/with-player/with-player";
 import MoviePropTypes from "../movie/movie-props";
 import ReviewPropTypes from "../movie-reviews/movie-review-props";
 import {connect} from "react-redux";
-import {getMovies} from "../../store/selectors";
+import {getMoviesList} from "../../store/selectors";
 import PrivateRoute from "../private-route/private-route";
 import browserHistory from "../../browser-history";
 
@@ -33,9 +33,13 @@ const App = (props) => {
         <Route exact path="/mylist">
           <MyList />
         </Route>
-        <Route exact path="/films/:id">
-          <Movie movies={movies}/>
-        </Route>
+        <Route
+          exact
+          path="/films/:id"
+          render={({match}) => {
+            return <Movie movieID={match.params.id} key={match.params.id}/>;
+          }}
+        />
         <PrivateRoute
           exact
           path={`/films/:id/review`}
@@ -60,7 +64,7 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  movies: getMovies(state),
+  movies: getMoviesList(state),
 });
 
 export default connect(mapStateToProps)(App);

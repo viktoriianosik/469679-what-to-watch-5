@@ -8,6 +8,11 @@ import MoviesList from "../movies-list/movies-list";
 import {SIMILAR_MOVIES_COUNT} from "../../const";
 import withMoviesList from "../../hocs/with-movies-list/with-movies-list";
 import Header from "../header/header";
+import {compose} from "redux";
+import {connect} from "react-redux";
+import {getMovie, getMoviesList} from "../../store/selectors";
+import {store} from "../../index";
+import {fetchMovie, fetchReviewsList} from "../../store/api-action";
 
 const MoviesListWrapper = withMoviesList(MoviesList);
 const TabsWrapper = withTabs(Tabs);
@@ -21,9 +26,19 @@ class Movie extends PureComponent {
     this.props.history.push(`/player/${movieID}`);
   }
 
+  componentDidMount() {
+    const {movieID} = this.props;
+    store.dispatch(fetchMovie(movieID));
+    store.dispatch(fetchReviewsList(movieID));
+  }
+
   render() {
-    const {match: {params: {id}}, movies} = this.props;
-    const movie = movies.find((item) => item.id === parseInt(id, 10));
+    const {movies, movie} = this.props;
+
+    if (movie === null) {
+      return null;
+    }
+
     const similarMovies = movies
     .filter((item) => item.genre === movie.genre && item.id !== movie.id)
     .slice(0, SIMILAR_MOVIES_COUNT);
@@ -57,7 +72,7 @@ class Movie extends PureComponent {
                     </svg>
                     <span>My list</span>
                   </button>
-                  <Link to={`/films/${id}/review`} className="btn movie-card__button">Add review</Link>
+                  <Link to={`/films/${movie.id}/review`} className="btn movie-card__button">Add review</Link>
                 </div>
               </div>
             </div>
@@ -100,6 +115,7 @@ class Movie extends PureComponent {
 
 Movie.propTypes = {
   movies: PropTypes.arrayOf(MoviePropTypes).isRequired,
+  movie: MoviePropTypes,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired
@@ -108,6 +124,12 @@ Movie.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
   }).isRequired,
+  movieID: PropTypes.string.isRequired,
 };
 
-export default withRouter(Movie);
+const mapStateToProps = (state) => ({
+  movies: getMoviesList(state),
+  movie: getMovie(state),
+});
+
+export default compose(withRouter, connect(mapStateToProps))(Movie);

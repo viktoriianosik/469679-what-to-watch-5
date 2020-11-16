@@ -6,6 +6,7 @@ import ShowMore from "../show-more/show-more";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
 import {MOVIES_COUNT} from "../../const";
+import {getMoviesCount} from "../../store/selectors";
 
 const MoviesList = (props) => {
   const {
@@ -55,8 +56,8 @@ MoviesList.propTypes = {
   moviesCount: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = ({PROCESS}) => ({
-  moviesCount: PROCESS.moviesCount
+const mapStateToProps = (state) => ({
+  moviesCount: getMoviesCount(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

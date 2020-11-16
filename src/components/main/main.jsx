@@ -7,7 +7,7 @@ import MoviePropTypes from "../movie/movie-props";
 import Header from "../header/header";
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action';
-import {getMoviesByGenre, getMovies} from "../../store/selectors";
+import {getMoviesByGenre, getMoviesList} from "../../store/selectors";
 
 const MoviesListWrapper = withMoviesList(MoviesList);
 
@@ -88,7 +88,7 @@ Main.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  movies: getMovies(state),
+  movies: getMoviesList(state),
   filteredMovies: getMoviesByGenre(state),
 });
 
