@@ -8,6 +8,13 @@ import MoviesList from "../movies-list/movies-list";
 import {SIMILAR_MOVIES_COUNT} from "../../const";
 import withMoviesList from "../../hocs/with-movies-list/with-movies-list";
 import Header from "../header/header";
+import {compose} from "redux";
+import {connect} from "react-redux";
+import {getMovie, getMoviesList} from "../../store/selectors";
+import {store} from "../../index";
+import {fetchMovie, fetchReviewsList, toggleFavorite} from "../../store/api-action";
+import Footer from "../footer/footer";
+import MovieCardButtons from "../movie-card-buttons/movie-card-buttons";
 
 const MoviesListWrapper = withMoviesList(MoviesList);
 const TabsWrapper = withTabs(Tabs);
@@ -17,13 +24,19 @@ class Movie extends PureComponent {
     super(props);
   }
 
-  handlePlayButtonClick(movieID) {
-    this.props.history.push(`/player/${movieID}`);
+  componentDidMount() {
+    const {movieID} = this.props;
+    store.dispatch(fetchMovie(movieID));
+    store.dispatch(fetchReviewsList(movieID));
   }
 
   render() {
-    const {match: {params: {id}}, movies} = this.props;
-    const movie = movies.find((item) => item.id === parseInt(id, 10));
+    const {movies, movie, onFavoriteClick} = this.props;
+
+    if (movie === null) {
+      return null;
+    }
+
     const similarMovies = movies
     .filter((item) => item.genre === movie.genre && item.id !== movie.id)
     .slice(0, SIMILAR_MOVIES_COUNT);
@@ -45,19 +58,8 @@ class Movie extends PureComponent {
                   <span className="movie-card__year">{movie.released}</span>
                 </p>
                 <div className="movie-card__buttons">
-                  <button className="btn btn--play movie-card__button" type="button" onClick={() => this.handlePlayButtonClick(movie.id)}>
-                    <svg viewBox="0 0 19 19" width="19" height="19">
-                      <use xlinkHref="#play-s"></use>
-                    </svg>
-                    <span>Play</span>
-                  </button>
-                  <button className="btn btn--list movie-card__button" type="button">
-                    <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#add"></use>
-                    </svg>
-                    <span>My list</span>
-                  </button>
-                  <Link to={`/films/${id}/review`} className="btn movie-card__button">Add review</Link>
+                  <MovieCardButtons movie={movie} onFavoriteClick={onFavoriteClick} />
+                  <Link to={`/films/${movie.id}/review`} className="btn movie-card__button">Add review</Link>
                 </div>
               </div>
             </div>
@@ -79,19 +81,7 @@ class Movie extends PureComponent {
             <MoviesListWrapper movies={similarMovies} />
           </section>
 
-          <footer className="page-footer">
-            <div className="logo">
-              <Link to={`/`} className="logo__link logo__link--light">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </Link>
-            </div>
-
-            <div className="copyright">
-              <p>© 2019 What to watch Ltd.</p>
-            </div>
-          </footer>
+          <Footer />
         </div>
       </React.Fragment>
     );
@@ -100,6 +90,7 @@ class Movie extends PureComponent {
 
 Movie.propTypes = {
   movies: PropTypes.arrayOf(MoviePropTypes).isRequired,
+  movie: MoviePropTypes,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired
@@ -108,6 +99,19 @@ Movie.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
   }).isRequired,
+  movieID: PropTypes.string.isRequired,
+  onFavoriteClick: PropTypes.func.isRequired,
 };
 
-export default withRouter(Movie);
+const mapStateToProps = (state) => ({
+  movies: getMoviesList(state),
+  movie: getMovie(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onFavoriteClick(filmID, status, movie) {
+    dispatch(toggleFavorite(filmID, status, movie));
+  }
+});
+
+export default compose(withRouter, connect(mapStateToProps, mapDispatchToProps))(Movie);

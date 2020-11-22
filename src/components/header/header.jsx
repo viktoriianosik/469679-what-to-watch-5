@@ -6,10 +6,10 @@ import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 
 const Header = (props) => {
-  const {authorizationStatus, children = null} = props;
+  const {authorizationStatus, className, children = null} = props;
 
   return (
-    <header className="page-header movie-card__head">
+    <header className={`page-header ${className}`}>
       <div className="logo">
         <Link to="/" className="logo__link">
           <span className="logo__letter logo__letter--1">W</span>
@@ -20,9 +20,11 @@ const Header = (props) => {
       {children}
       <div className="user-block">
         {authorizationStatus === AuthorizationStatus.AUTH
-          ? <div className="user-block__avatar">
-            <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-          </div>
+          ? <Link to={`/mylist`}>
+            <div className="user-block__avatar">
+              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+            </div>
+          </Link>
           : <Link to={`/login`} href="sign-in.html" className="user-block__link">Sign in</Link>
         }
       </div>
@@ -30,9 +32,17 @@ const Header = (props) => {
   );
 };
 
+Header.defaultProps = {
+  className: `movie-card__head`,
+};
+
 Header.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]),
+  className: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({

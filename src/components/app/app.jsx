@@ -12,7 +12,7 @@ import withPlayer from "../../hocs/with-player/with-player";
 import MoviePropTypes from "../movie/movie-props";
 import ReviewPropTypes from "../movie-reviews/movie-review-props";
 import {connect} from "react-redux";
-import {getMovies} from "../../store/selectors";
+import {getMoviesList} from "../../store/selectors";
 import PrivateRoute from "../private-route/private-route";
 import browserHistory from "../../browser-history";
 
@@ -20,12 +20,12 @@ const PlayerWrapper = withPlayer(Player);
 const AddReviewWrapper = withAddReview(AddReview);
 
 const App = (props) => {
-  const {name, genre, year, movies} = props;
+  const {movies} = props;
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path="/">
-          <Main name={name} genre={genre} year={year} movies={movies}/>
+          <Main movies={movies}/>
         </Route>
         <Route exact path="/login">
           <Login />
@@ -33,14 +33,18 @@ const App = (props) => {
         <Route exact path="/mylist">
           <MyList />
         </Route>
-        <Route exact path="/films/:id">
-          <Movie movies={movies}/>
-        </Route>
+        <Route
+          exact
+          path="/films/:id"
+          render={({match}) => {
+            return <Movie movieID={match.params.id} key={match.params.id}/>;
+          }}
+        />
         <PrivateRoute
           exact
           path={`/films/:id/review`}
-          render={() => {
-            return <AddReviewWrapper movies={movies}/>;
+          render={({match}) => {
+            return <AddReviewWrapper movieID={match.params.id}/>;
           }}
         />
         <Route exact path="/player/:id">
@@ -52,15 +56,12 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  name: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  year: PropTypes.number.isRequired,
   movies: PropTypes.arrayOf(MoviePropTypes),
   reviews: PropTypes.arrayOf(ReviewPropTypes),
 };
 
 const mapStateToProps = (state) => ({
-  movies: getMovies(state),
+  movies: getMoviesList(state),
 });
 
 export default connect(mapStateToProps)(App);
