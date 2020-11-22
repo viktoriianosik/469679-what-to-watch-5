@@ -20,12 +20,12 @@ const PlayerWrapper = withPlayer(Player);
 const AddReviewWrapper = withAddReview(AddReview);
 
 const App = (props) => {
-  const {name, genre, year, movies} = props;
+  const {movies} = props;
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path="/">
-          <Main name={name} genre={genre} year={year} movies={movies}/>
+          <Main movies={movies}/>
         </Route>
         <Route exact path="/login">
           <Login />
@@ -43,8 +43,8 @@ const App = (props) => {
         <PrivateRoute
           exact
           path={`/films/:id/review`}
-          render={() => {
-            return <AddReviewWrapper movies={movies}/>;
+          render={({match}) => {
+            return <AddReviewWrapper movieID={match.params.id}/>;
           }}
         />
         <Route exact path="/player/:id">
@@ -56,9 +56,6 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  name: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  year: PropTypes.number.isRequired,
   movies: PropTypes.arrayOf(MoviePropTypes),
   reviews: PropTypes.arrayOf(ReviewPropTypes),
 };

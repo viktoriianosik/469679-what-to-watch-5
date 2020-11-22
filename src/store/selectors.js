@@ -11,12 +11,20 @@ export const getMovie = (state) => {
   return camelCase(state[NameSpaces.DATA].movie);
 };
 
+export const getPromoMovie = (state) => {
+  return camelCase(state[NameSpaces.DATA].promoMovie);
+};
+
 export const getGenre = (state) => {
   return state[NameSpaces.PROCESS].genre;
 };
 
 export const getMoviesCount = (state) => {
   return state[NameSpaces.PROCESS].moviesCount;
+};
+
+export const getFavoriteMovies = (state) => {
+  return camelCase(state[NameSpaces.DATA].favoriteMovies);
 };
 
 export const getMoviesByGenre = createSelector(

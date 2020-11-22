@@ -3,7 +3,9 @@ export const ActionType = {
   CHANGE_MOVIES_COUNT_IN_LIST: `CHANGE_MOVIES_COUNT_IN_LIST`,
   LOAD_MOVIES: `LOAD_MOVIES`,
   LOAD_MOVIE: `LOAD_MOVIE`,
+  LOAD_PROMO_MOVIE: `LOAD__PROMO_MOVIE`,
   LOAD_REVIEWS: `LOAD_REVIEWS`,
+  LOAD_FAVORITE_LIST: `LOAD_FAVORITE_LIST`,
   REQUIRE_AUTHORIZATION: `REQUIRE_AUTHORIZATION`,
   REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`,
   CATCH_ERROR_MESSAGE: `CATCH_ERROR_MESSAGE`,
@@ -26,9 +28,17 @@ export const ActionCreator = {
     type: ActionType.LOAD_MOVIE,
     payload: movie,
   }),
+  loadPromoMovie: (promo) => ({
+    type: ActionType.LOAD_PROMO_MOVIE,
+    payload: promo,
+  }),
   loadReviews: (comments) => ({
     type: ActionType.LOAD_REVIEWS,
     payload: comments,
+  }),
+  loadFavoriteList: (movies) => ({
+    type: ActionType.LOAD_FAVORITE_LIST,
+    payload: movies,
   }),
   requireAuthorization: (status) => ({
     type: ActionType.REQUIRE_AUTHORIZATION,

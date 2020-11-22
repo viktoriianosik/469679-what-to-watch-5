@@ -12,7 +12,9 @@ import {compose} from "redux";
 import {connect} from "react-redux";
 import {getMovie, getMoviesList} from "../../store/selectors";
 import {store} from "../../index";
-import {fetchMovie, fetchReviewsList} from "../../store/api-action";
+import {fetchMovie, fetchReviewsList, toggleFavorite} from "../../store/api-action";
+import Footer from "../footer/footer";
+import MovieCardButtons from "../movie-card-buttons/movie-card-buttons";
 
 const MoviesListWrapper = withMoviesList(MoviesList);
 const TabsWrapper = withTabs(Tabs);
@@ -22,10 +24,6 @@ class Movie extends PureComponent {
     super(props);
   }
 
-  handlePlayButtonClick(movieID) {
-    this.props.history.push(`/player/${movieID}`);
-  }
-
   componentDidMount() {
     const {movieID} = this.props;
     store.dispatch(fetchMovie(movieID));
@@ -33,7 +31,7 @@ class Movie extends PureComponent {
   }
 
   render() {
-    const {movies, movie} = this.props;
+    const {movies, movie, onFavoriteClick} = this.props;
 
     if (movie === null) {
       return null;
@@ -60,18 +58,7 @@ class Movie extends PureComponent {
                   <span className="movie-card__year">{movie.released}</span>
                 </p>
                 <div className="movie-card__buttons">
-                  <button className="btn btn--play movie-card__button" type="button" onClick={() => this.handlePlayButtonClick(movie.id)}>
-                    <svg viewBox="0 0 19 19" width="19" height="19">
-                      <use xlinkHref="#play-s"></use>
-                    </svg>
-                    <span>Play</span>
-                  </button>
-                  <button className="btn btn--list movie-card__button" type="button">
-                    <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#add"></use>
-                    </svg>
-                    <span>My list</span>
-                  </button>
+                  <MovieCardButtons movie={movie} onFavoriteClick={onFavoriteClick} />
                   <Link to={`/films/${movie.id}/review`} className="btn movie-card__button">Add review</Link>
                 </div>
               </div>
@@ -94,19 +81,7 @@ class Movie extends PureComponent {
             <MoviesListWrapper movies={similarMovies} />
           </section>
 
-          <footer className="page-footer">
-            <div className="logo">
-              <Link to={`/`} className="logo__link logo__link--light">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </Link>
-            </div>
-
-            <div className="copyright">
-              <p>© 2019 What to watch Ltd.</p>
-            </div>
-          </footer>
+          <Footer />
         </div>
       </React.Fragment>
     );
@@ -125,6 +100,7 @@ Movie.propTypes = {
     push: PropTypes.func.isRequired
   }).isRequired,
   movieID: PropTypes.string.isRequired,
+  onFavoriteClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -132,4 +108,10 @@ const mapStateToProps = (state) => ({
   movie: getMovie(state),
 });
 
-export default compose(withRouter, connect(mapStateToProps))(Movie);
+const mapDispatchToProps = (dispatch) => ({
+  onFavoriteClick(filmID, status, movie) {
+    dispatch(toggleFavorite(filmID, status, movie));
+  }
+});
+
+export default compose(withRouter, connect(mapStateToProps, mapDispatchToProps))(Movie);
