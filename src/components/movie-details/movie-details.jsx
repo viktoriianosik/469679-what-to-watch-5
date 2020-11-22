@@ -1,5 +1,4 @@
 import React, {Fragment} from "react";
-import PropTypes from "prop-types";
 import {getTimeFromMins} from "../../utils";
 import MoviePropTypes from "../movie/movie-props";
 

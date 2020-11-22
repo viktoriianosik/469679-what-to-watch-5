@@ -1,5 +1,4 @@
 import React, {Fragment} from "react";
-import PtopTypes from "prop-types";
 import MoviePropTypes from "../movie/movie-props";
 import {convertRatingToLevel} from "../../utils";
 
