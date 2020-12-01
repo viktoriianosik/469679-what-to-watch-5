@@ -63,4 +63,5 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
+export {PromoMovie};
 export default compose(withRouter, connect(mapStateToProps, mapDispatchToProps))(PromoMovie);

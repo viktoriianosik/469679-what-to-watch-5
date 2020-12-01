@@ -44,4 +44,5 @@ const mapStateToProps = ({DATA}) => ({
   reviews: DATA.reviews,
 });
 
+export {Tabs};
 export default connect(mapStateToProps)(Tabs);

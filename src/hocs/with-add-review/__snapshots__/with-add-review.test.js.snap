@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`withAddReview is rendered correctly Should withAddReviewComponent connected to store render correctly 1`] = `<div />`;

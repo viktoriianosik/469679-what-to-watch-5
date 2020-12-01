@@ -48,4 +48,5 @@ const mapStateToProps = (state) => ({
   favoriteMovies: getFavoriteMovies(state),
 });
 
+export {MyList};
 export default connect(mapStateToProps)(MyList);

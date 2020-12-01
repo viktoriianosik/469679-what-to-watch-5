@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render component VideoPlayer correctly 1`] = `
+<video
+  autoPlay={true}
+  className="player__video"
+  muted={false}
+  onTimeUpdate={[Function]}
+/>
+`;

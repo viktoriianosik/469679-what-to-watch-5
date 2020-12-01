@@ -91,4 +91,5 @@ const mapDispatchToProprs = (dispatch) => ({
   }
 });
 
+export {Login};
 export default connect(null, mapDispatchToProprs)(Login);

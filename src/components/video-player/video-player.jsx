@@ -20,7 +20,6 @@ class VideoPlayer extends PureComponent {
 VideoPlayer.propTypes = {
   isPlaying: PropTypes.bool.isRequired,
   muted: PropTypes.bool.isRequired,
-  videoRef: PropTypes.string,
   onTimeUpdate: PropTypes.func.isRequired,
   innerRef: PropTypes.oneOfType([
     PropTypes.func,
@@ -28,6 +27,7 @@ VideoPlayer.propTypes = {
   ]),
 };
 
+export {VideoPlayer};
 export default React.forwardRef((props, ref) => <VideoPlayer
   innerRef={ref} {...props}
 />);

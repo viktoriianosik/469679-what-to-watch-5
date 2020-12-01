@@ -99,4 +99,5 @@ Player.propTypes = {
   onTimeUpdate: PropTypes.func.isRequired,
 };
 
+export {Player};
 export default withRouter(Player);

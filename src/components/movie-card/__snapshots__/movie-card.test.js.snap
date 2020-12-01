@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render component MovieCard correctly Render component MovieCard doesn't playing 1`] = `
+<article
+  className="small-movie-card catalog__movies-card"
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  <div
+    className="small-movie-card__image"
+  >
+    <img
+      alt="Pulp Fiction"
+      height="175"
+      src="https://assets.htmlacademy.ru/intensives/javascript-3/film/poster/Pulp_Fiction.jpg"
+      width="280"
+    />
+  </div>
+  <h3
+    className="small-movie-card__title"
+  >
+    <a
+      className="small-movie-card__link"
+    >
+      Pulp Fiction
+    </a>
+  </h3>
+</article>
+`;
+
+exports[`Render component MovieCard correctly Render component MovieCard playing 1`] = `
+<article
+  className="small-movie-card catalog__movies-card"
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  <div
+    className="small-movie-card__image"
+  >
+    <video
+      autoPlay={true}
+      className="player__video"
+      muted={true}
+      src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+    />
+  </div>
+  <h3
+    className="small-movie-card__title"
+  >
+    <a
+      className="small-movie-card__link"
+    >
+      Pulp Fiction
+    </a>
+  </h3>
+</article>
+`;

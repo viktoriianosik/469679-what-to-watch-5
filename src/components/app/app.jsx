@@ -10,7 +10,6 @@ import MyList from "../my-list/my-list";
 import Player from "../player/player";
 import withPlayer from "../../hocs/with-player/with-player";
 import MoviePropTypes from "../movie/movie-props";
-import ReviewPropTypes from "../movie-reviews/movie-review-props";
 import {connect} from "react-redux";
 import {getMoviesList} from "../../store/selectors";
 import PrivateRoute from "../private-route/private-route";
@@ -57,7 +56,6 @@ const App = (props) => {
 
 App.propTypes = {
   movies: PropTypes.arrayOf(MoviePropTypes),
-  reviews: PropTypes.arrayOf(ReviewPropTypes),
 };
 
 const mapStateToProps = (state) => ({

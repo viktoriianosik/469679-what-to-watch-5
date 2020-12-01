@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render component VideoPreview correctly 1`] = `
+<video
+  autoPlay={true}
+  className="player__video"
+  muted={true}
+  src="img/*"
+/>
+`;

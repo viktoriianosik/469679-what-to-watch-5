@@ -39,4 +39,5 @@ const mapStateToProps = ({PROCESS}) => ({
   activeGenre: PROCESS.genre,
 });
 
+export {GenresList};
 export default connect(mapStateToProps)(GenresList);

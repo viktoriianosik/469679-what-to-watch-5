@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render component ErrorMessage correctly 1`] = `
+<div
+  style={
+    Object {
+      "alignItems": "center",
+      "background": "red",
+      "color": "white",
+      "display": "flex",
+      "height": "70px",
+      "justifyContent": "center",
+      "position": "absolute",
+      "width": "100%",
+      "zIndex": "100",
+    }
+  }
+>
+  Error 404
+</div>
+`;
