@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Switch, Route, Router as BrowserRouter} from "react-router-dom";
+import {Switch, Route, HashRouter as BrowserRouter} from "react-router-dom";
 import Main from "../main/main";
 import Login from "../login/login";
 import AddReview from "../add-review/add-review";
@@ -21,9 +21,9 @@ const AddReviewWrapper = withAddReview(AddReview);
 const App = (props) => {
   const {movies} = props;
   return (
-    <BrowserRouter history={browserHistory}>
+    <BrowserRouter>
       <Switch>
-        <Route exact path="process.env.PUBLIC_URL + '/'">
+        <Route exact path="/">
           <Main movies={movies}/>
         </Route>
         <Route exact path="/login">
