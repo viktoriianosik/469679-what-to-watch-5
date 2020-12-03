@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Switch, Route, HashRouter as BrowserRouter} from "react-router-dom";
+import {Switch, Route, Router as BrowserRouter} from "react-router-dom";
 import Main from "../main/main";
 import Login from "../login/login";
 import AddReview from "../add-review/add-review";
@@ -23,7 +23,7 @@ const App = (props) => {
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
-        <Route exact path="/">
+        <Route exact path="process.env.PUBLIC_URL + '/'">
           <Main movies={movies}/>
         </Route>
         <Route exact path="/login">
