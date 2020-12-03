@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Switch, Route, Router as BrowserRouter} from "react-router-dom";
+import {Switch, Route, HashRouter as BrowserRouter} from "react-router-dom";
 import Main from "../main/main";
 import Login from "../login/login";
 import AddReview from "../add-review/add-review";
